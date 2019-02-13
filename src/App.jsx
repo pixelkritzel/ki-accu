@@ -9,7 +9,7 @@ import CSS from './App.module.css';
 
 class App extends Component {
   state = {
-    viewName: 'characterForm'
+    viewName: 'game'
   };
 
   setView = viewName => {

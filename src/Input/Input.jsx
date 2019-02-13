@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-export default class Input extends Component {
+export default class Input extends React.Component {
   onChange = event => {
     const { name, value } = event.target;
-    this.props.onChange(name, value);
+    const { type } = this.props;
+    this.props.onChange(name, type === 'number' ? Number(value) : value);
   };
 
   render() {

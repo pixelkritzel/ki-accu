@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import Input from 'Input';
 import { StoreContext } from 'Store';
 
-export default class CharacterForm extends Component {
+export default class CharacterForm extends React.Component {
   static contextType = StoreContext;
 
   render() {
@@ -19,7 +18,7 @@ export default class CharacterForm extends Component {
         />
 
         {this.context.values.character.characteristics.map((c, index) => (
-          <>
+          <React.Fragment key={index}>
             <Input
               label={`${c.name} pool`}
               name={c.name}
@@ -37,7 +36,7 @@ export default class CharacterForm extends Component {
                 this.context.actions.set(`character.characteristics[${index}].accumulation`, value)
               }
             />
-          </>
+          </React.Fragment>
         ))}
       </div>
     );
