@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import CharacterForm from './CharacterForm';
+import Game from './Game';
+import Navbar from './Navbar';
+import Store from './Store';
+
+import CSS from './App.module.css';
 
 class App extends Component {
+  state = {
+    viewName: 'characterForm'
+  };
+
+  setView = viewName => {
+    this.setState({ viewName });
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Store>
+        <div className={'container ' + CSS.app}>
+          <Navbar setView={this.setView} />
+          {this.state.viewName === 'characterForm' ? <CharacterForm /> : <Game />}
+        </div>
+      </Store>
     );
   }
 }
