@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { Form, Row, Col } from 'reactstrap';
+import { Form, Row, Col, Button } from 'reactstrap';
 
 import { FormField } from '@/components/FormField';
 import { IncrementDecrement } from '@/components/IncrementDecrement';
@@ -152,7 +152,20 @@ export class CharacterForm extends React.Component<ICharacterFormProps> {
           </Col>
         </Row>
 
-        <button type="submit">{submitButtonText}</button>
+        <Row>
+          <Col>
+            <IncrementDecrement
+              labelText="Fatigue basepoints"
+              name="fatique-basepoints"
+              value={character.fatigue.basePoints.toString()}
+              handleChange={(_, points) => character.fatigue.setBasePoints(Number(points))}
+            />
+          </Col>
+        </Row>
+
+        <Button className="btn-success" type="submit">
+          {submitButtonText}
+        </Button>
       </Form>
     );
   }

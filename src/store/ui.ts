@@ -8,7 +8,6 @@ export const uiModel = types
   })
   .actions(self => ({
     setCurrentCharacter(character?: ICharacter) {
-      console.log('character');
       self.currentCharacter = character;
     }
   }));

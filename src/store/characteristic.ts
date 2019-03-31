@@ -5,16 +5,26 @@ export const characteristicModel = types
     basePoints: types.number,
     accumulation: types.number,
     accumulatedPoints: 0,
+    modifiers: types.model({
+      fromFatigue: 0,
+      fromTechnigue: 0
+    }),
     spendPoints: 0
   })
   .views(self => ({
     get availablePoints() {
       return self.basePoints - self.accumulatedPoints - self.spendPoints;
+    },
+    get currentAccumulation() {
+      return self.accumulation + self.modifiers.fromFatigue + self.modifiers.fromTechnigue;
+    },
+    get currentHalfAccumulation() {
+      return Math.round(this.currentAccumulation / 2);
     }
   }))
   .actions(self => ({
     accumulate(half = false) {
-      let newAccumulatedPoints = half ? Math.round(self.accumulation / 2) : self.accumulation;
+      let newAccumulatedPoints = half ? self.currentHalfAccumulation : self.currentAccumulation;
       if (newAccumulatedPoints > self.availablePoints) {
         newAccumulatedPoints = self.availablePoints;
       }
@@ -45,6 +55,11 @@ export const characteristicModel = types
       if (pointsToSpend <= self.accumulatedPoints) {
         self.accumulatedPoints = self.accumulatedPoints - pointsToSpend;
         self.spendPoints += pointsToSpend;
+      }
+    },
+    payGenericPoints(points = 1) {
+      if (self.availablePoints - points > 0) {
+        self.spendPoints += points;
       }
     }
   }));

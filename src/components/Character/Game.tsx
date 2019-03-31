@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
+import cx from 'classnames';
 
 import { Table, Button } from 'reactstrap';
 
 import { CharacteristicRow } from './CharacteristicRow';
+import { Fatigue } from './Fatigue';
 
-import { IStore, storeModel } from '@/store';
+import { IStore } from '@/store';
 
-import CSS from './View.module.scss';
+import CSS from './Game.module.scss';
 
 interface ICharacterViewProps {
   store?: IStore;
@@ -20,7 +22,7 @@ export class GameView extends React.Component<ICharacterViewProps> {
   render() {
     const { store, toggleEditForm } = this.props;
     const { currentCharacter } = store!.ui;
-    const { name, characteristics } = currentCharacter!;
+    const { name, characteristics, fatigue, isFatigueBoosted } = currentCharacter!;
     return (
       <>
         <div className={CSS.header}>
@@ -32,7 +34,9 @@ export class GameView extends React.Component<ICharacterViewProps> {
             <tr>
               <th>Characteristic</th>
               <th>Available</th>
-              <th />
+              <th>Gen.</th>
+              <th>&times;½</th>
+              <th>&times;1</th>
               <th>Accumulated</th>
               <th />
               <th>Spend</th>
@@ -48,6 +52,19 @@ export class GameView extends React.Component<ICharacterViewProps> {
             <CharacteristicRow name="Willpower" model={characteristics.willpower} />
           </tbody>
         </Table>
+        <div className={CSS.additionalActions}>
+          <Button className="btn-sm" onClick={currentCharacter!.boostAccumulationByFatique}>
+            Spend Fatique for Ki
+          </Button>
+          <Button
+            className={cx({ 'btn-sm btn-warning': isFatigueBoosted })}
+            disabled={!isFatigueBoosted}
+            onClick={currentCharacter!.clearFatiqueBoost}
+          >
+            Clear fatique boost
+          </Button>
+        </div>
+        <Fatigue fatigue={fatigue} />
       </>
     );
   }

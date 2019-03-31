@@ -28,7 +28,7 @@ export class CharacterHeader extends React.Component<{ store?: IStore }> {
           }}
         >
           {characters.map(char => (
-            <option selected={char === currentCharacter} value={char.id}>
+            <option key={char.id} selected={char === currentCharacter} value={char.id}>
               {char.name}
             </option>
           ))}

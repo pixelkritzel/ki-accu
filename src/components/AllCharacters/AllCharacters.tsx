@@ -26,7 +26,7 @@ export class AllCharacters extends React.Component<{ store?: IStore }> {
           </thead>
           <tbody>
             {store.data.characters.map(character => (
-              <CharacterRow character={character} />
+              <CharacterRow key={character.id} character={character} />
             ))}
           </tbody>
         </Table>

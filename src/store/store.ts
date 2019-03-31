@@ -1,8 +1,10 @@
 import { dataModel, IData } from './data';
 import * as localforage from 'localforage';
 import { applySnapshot, onSnapshot, Instance, types, detach } from 'mobx-state-tree';
+
 import { characterModel, CHARACTER_SCAFFOLD } from './character';
 import { uiModel } from './ui';
+import { updateSavedData } from './updateSavedData';
 
 const LOCALFORAGE_KEY = 'data';
 
@@ -30,12 +32,15 @@ export const storeModel = types
   .actions(self => ({
     afterCreate() {
       this.loadData();
-      onSnapshot(self.data, snapshot => localforage.setItem(LOCALFORAGE_KEY, snapshot));
+      onSnapshot(self.data, snapshot => {
+        localforage.setItem(LOCALFORAGE_KEY, snapshot);
+      });
     },
 
     async loadData() {
       const savedData = await localforage.getItem(LOCALFORAGE_KEY);
       try {
+        updateSavedData(savedData);
         applySnapshot(self.data, savedData);
       } catch (e) {
         console.log(e);
