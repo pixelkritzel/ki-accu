@@ -48,9 +48,26 @@ export const characterModel = types
         const characteristic = characteristics[curr as keyof ICharacter['characteristics']] as ICharacteristic;
         return res + characteristic.modifiers.fromFatigue;
       }, 0);
+    },
+    sumOf(propName: 'availablePoints' | 'accumulatedPoints' | 'spendPoints') {
+      const { characteristics } = self;
+      return Object.keys(characteristics).reduce((res, curr) => {
+        const characteristic = characteristics[curr as keyof ICharacter['characteristics']] as ICharacteristic;
+        return res + characteristic[propName];
+      }, 0);
     }
   }))
   .actions(self => ({
+    accumulate(half = false) {
+      const { characteristics } = self;
+      for (const characteristicName in characteristics) {
+        const characteristic = characteristics[
+          characteristicName as keyof ICharacter['characteristics']
+        ] as ICharacteristic;
+        characteristic.accumulate(half);
+      }
+    },
+
     boostAccumulationByFatique() {
       if (self.fatigue.availablePoints > 0) {
         const { characteristics } = self;
@@ -73,6 +90,17 @@ export const characterModel = types
           characteristicName as keyof ICharacter['characteristics']
         ] as ICharacteristic;
         characteristic.modifiers.fromFatigue = 0;
+      }
+    },
+    reset() {
+      this.clearFatiqueBoost();
+      self.fatigue.spend = 0;
+      const { characteristics } = self;
+      for (const characteristicName in characteristics) {
+        const characteristic = characteristics[
+          characteristicName as keyof ICharacter['characteristics']
+        ] as ICharacteristic;
+        characteristic.reset();
       }
     }
   }));

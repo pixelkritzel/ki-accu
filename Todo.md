@@ -5,4 +5,5 @@
 [x] Ausgabe von generischen Ki-Punkten
 [ ] CRUD Funktionen auf alle Tabelle
 [ ] Import/Export Funktionen
-[ ] Summen der Spalten
+[x] Summen der Spalten
+[ ] Techniques

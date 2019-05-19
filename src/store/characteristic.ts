@@ -48,6 +48,10 @@ export const characteristicModel = types
         --self.spendPoints;
       }
     },
+    reset() {
+      self.accumulatedPoints = 0;
+      self.spendPoints = 0;
+    },
     returnAccumulatedPoints() {
       self.accumulatedPoints = 0;
     },
