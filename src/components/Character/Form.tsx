@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import { Form, Row, Col, Button } from 'reactstrap';
 
 import { FormField } from '@/components/FormField';
 import { IncrementDecrement } from '@/components/IncrementDecrement';
 
-import { characterModel, ICharacter } from '@/store/character';
-import { IStore } from '@/store';
+import { StoreContext } from '@/store/StoreContext';
+
+import { ICharacter } from '@/store/character';
 
 interface ISubmit {
   submitFn: () => void;
@@ -15,19 +16,19 @@ interface ISubmit {
 }
 
 interface ICharacterFormProps {
-  store?: IStore;
   submit: ISubmit;
 }
 
-@inject('store')
 @observer
 export class CharacterForm extends React.Component<ICharacterFormProps> {
+  static contextType = StoreContext;
+  context!: React.ContextType<typeof StoreContext>;
   character: ICharacter;
 
   constructor(props: any) {
     super(props);
-    const { store } = this.props;
-    this.character = store!.ui.newCharacter! || store!.ui.currentCharacter!;
+    const store = this.context;
+    this.character = store.ui.newCharacter! || store.ui.currentCharacter!;
   }
 
   submitForm = (event: React.FormEvent<HTMLFormElement>) => {

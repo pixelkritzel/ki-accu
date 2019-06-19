@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
-import { IStore } from '@/store';
 import { Table, Button } from 'reactstrap';
 import { CharacterRow } from './CharacterRow';
 
+import { StoreContext } from '@/store/StoreContext';
+
 import CSS from './AllCharacters.module.scss';
 
-@inject('store')
 @observer
-export class AllCharacters extends React.Component<{ store?: IStore }> {
+export class AllCharacters extends React.Component {
+  static contextType = StoreContext;
+  context!: React.ContextType<typeof StoreContext>;
+
   render() {
-    const store = this.props.store!;
+    const store = this.context;
     return (
       <>
         <Button className={CSS.new} onClick={store.newCharacter}>

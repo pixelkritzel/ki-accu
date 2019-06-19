@@ -1,13 +1,15 @@
 import * as React from 'react';
 
 import { CharacterForm } from './Form';
-import { inject } from 'mobx-react';
-import { IStore } from '@/store';
 
-@inject('store')
-export class NewCharacter extends React.Component<{ store?: IStore }> {
+import { StoreContext } from '@/store/StoreContext';
+
+export class NewCharacter extends React.Component {
+  static contextType = StoreContext;
+  context!: React.ContextType<typeof StoreContext>;
+
   submit = {
-    submitFn: this.props.store!.addNewCharacter,
+    submitFn: this.context.addNewCharacter,
     submitButtonText: 'Add Character'
   };
 

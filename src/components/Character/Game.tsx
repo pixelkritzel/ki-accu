@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
-import cx from 'classnames';
+import { observer } from 'mobx-react';
 
 import { Button } from 'reactstrap';
 
@@ -8,21 +7,22 @@ import { Actions } from './Actions';
 import { Characteristics } from './Characteristics';
 import { Fatigue } from './Fatigue';
 
-import { IStore } from '@/store';
+import { StoreContext } from '@/store/StoreContext';
 
 import CSS from './Game.module.scss';
 
 interface ICharacterViewProps {
-  store?: IStore;
   toggleEditForm: () => void;
 }
 
-@inject('store')
 @observer
 export class GameView extends React.Component<ICharacterViewProps> {
+  static contextType = StoreContext;
+  context!: React.ContextType<typeof StoreContext>;
+
   render() {
-    const { store, toggleEditForm } = this.props;
-    const { currentCharacter } = store!.ui;
+    const { toggleEditForm } = this.props;
+    const { currentCharacter } = this.context.ui;
     const { name, fatigue, isFatigueBoosted } = currentCharacter!;
     return (
       <>

@@ -6,10 +6,8 @@ import { CharacterForm } from './Form';
 import { GameView } from './Game';
 import { CharacterHeader } from './Header';
 
-import { IStore } from '@/store';
-
 @observer
-export class Character extends React.Component<{ store?: IStore }> {
+export class Character extends React.Component {
   @observable showEditForm = false;
 
   @action toggleEditForm = () => {

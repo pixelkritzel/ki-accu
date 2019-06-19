@@ -1,21 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'mobx-react';
 
 import * as serviceWorker from './serviceWorker';
 
 import App from './App';
 
-import { EMPTY_STORE_LITERAL, storeModel } from '@/store';
+import { store, StoreContext } from './store/StoreContext';
 
 import './bootstrap/bootstrap.scss';
 
-const store = storeModel.create(EMPTY_STORE_LITERAL);
-
 ReactDOM.render(
-  <Provider store={store}>
+  <StoreContext.Provider value={store}>
     <App />
-  </Provider>,
+  </StoreContext.Provider>,
   document.getElementById('root')
 );
 

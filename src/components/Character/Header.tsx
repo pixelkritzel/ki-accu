@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 import { Button, Input } from 'reactstrap';
 
-import { IStore } from '@/store';
+import { StoreContext } from '@/store/StoreContext';
 
 import CSS from './CharacterHeader.module.scss';
 
-@inject('store')
 @observer
-export class CharacterHeader extends React.Component<{ store?: IStore }> {
+export class CharacterHeader extends React.Component {
+  static contextType = StoreContext;
+  context!: React.ContextType<typeof StoreContext>;
+
   render() {
-    const store = this.props.store!;
-    const { currentCharacter, setCurrentCharacter } = store.ui;
-    const { characters } = store.data;
+    const { currentCharacter, setCurrentCharacter } = this.context.ui;
+    const { characters } = this.context.data;
     return (
       <div className={CSS.header}>
         <Button className={CSS.backButton} onClick={() => setCurrentCharacter(undefined)}>
