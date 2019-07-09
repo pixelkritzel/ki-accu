@@ -3,11 +3,11 @@ import { characterModel, ICharacter } from './character';
 
 export const uiModel = types
   .model('ui', {
-    currentCharacter: types.maybe(types.reference(characterModel)),
+    dataLoaded: false,
     newCharacter: types.maybe(characterModel)
   })
   .actions(self => ({
-    setCurrentCharacter(character?: ICharacter) {
-      self.currentCharacter = character;
+    setDataLoaded() {
+      self.dataLoaded = true;
     }
   }));

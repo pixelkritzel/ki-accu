@@ -2,7 +2,7 @@ import { dataModel, IData } from './data';
 import * as localforage from 'localforage';
 import { applySnapshot, onSnapshot, Instance, types, detach } from 'mobx-state-tree';
 
-import { characterModel, CHARACTER_SCAFFOLD } from './character';
+import { characterModel, CHARACTER_SCAFFOLD, ICharacter } from './character';
 import { uiModel } from './ui';
 import { updateSavedData } from './updateSavedData';
 
@@ -12,9 +12,7 @@ export const EMPTY_STORE_LITERAL = {
   data: {
     characters: []
   },
-  ui: {
-    currentCharacter: undefined
-  }
+  ui: {}
 };
 
 localforage.config({
@@ -42,18 +40,10 @@ export const storeModel = types
       try {
         updateSavedData(savedData);
         applySnapshot(self.data, savedData);
+        self.ui.setDataLoaded();
       } catch (e) {
         console.log(e);
       }
-    },
-
-    addNewCharacter() {
-      const newCharacter = detach(self.ui.newCharacter!);
-      self.data.characters.push(newCharacter);
-    },
-
-    newCharacter() {
-      self.ui.newCharacter = characterModel.create(CHARACTER_SCAFFOLD);
     }
   }));
 

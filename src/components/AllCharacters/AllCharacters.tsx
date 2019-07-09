@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import { Table, Button } from 'reactstrap';
 import { CharacterRow } from './CharacterRow';
 
 import { StoreContext } from '@/store/StoreContext';
+import { ICharacter } from '@/store/character';
 
 import CSS from './AllCharacters.module.scss';
 
@@ -17,9 +19,11 @@ export class AllCharacters extends React.Component {
     const store = this.context;
     return (
       <>
-        <Button className={CSS.new} onClick={store.newCharacter}>
-          New Character
-        </Button>
+        <Link to="/new_character">
+          <Button tag="span" className={CSS.new}>
+            New Character
+          </Button>
+        </Link>
         <Table>
           <thead>
             <tr>
@@ -28,7 +32,7 @@ export class AllCharacters extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {store.data.characters.map(character => (
+            {store.data.characters.map((character: ICharacter) => (
               <CharacterRow key={character.id} character={character} />
             ))}
           </tbody>

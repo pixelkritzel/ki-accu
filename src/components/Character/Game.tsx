@@ -10,8 +10,10 @@ import { Fatigue } from './Fatigue';
 import { StoreContext } from '@/store/StoreContext';
 
 import CSS from './Game.module.scss';
+import { ICharacter } from '@/store/character';
 
 interface ICharacterViewProps {
+  character: ICharacter;
   toggleEditForm: () => void;
 }
 
@@ -21,17 +23,16 @@ export class GameView extends React.Component<ICharacterViewProps> {
   context!: React.ContextType<typeof StoreContext>;
 
   render() {
-    const { toggleEditForm } = this.props;
-    const { currentCharacter } = this.context.ui;
-    const { name, fatigue, isFatigueBoosted } = currentCharacter!;
+    const { character, toggleEditForm } = this.props;
+    const { name, fatigue } = character;
     return (
       <>
         <div className={CSS.header}>
           <h3>{name}</h3>
           <Button onClick={toggleEditForm}>Edit</Button>
         </div>
-        <Actions character={currentCharacter!} />
-        <Characteristics character={currentCharacter!} />
+        <Actions character={character!} />
+        <Characteristics character={character!} />
         <div className={CSS.additionalActions} />
         <Fatigue fatigue={fatigue} />
       </>

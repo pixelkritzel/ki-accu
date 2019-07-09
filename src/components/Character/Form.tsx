@@ -16,6 +16,7 @@ interface ISubmit {
 }
 
 interface ICharacterFormProps {
+  character: ICharacter;
   submit: ISubmit;
 }
 
@@ -23,13 +24,6 @@ interface ICharacterFormProps {
 export class CharacterForm extends React.Component<ICharacterFormProps> {
   static contextType = StoreContext;
   context!: React.ContextType<typeof StoreContext>;
-  character: ICharacter;
-
-  constructor(props: any) {
-    super(props);
-    const store = this.context;
-    this.character = store.ui.newCharacter! || store.ui.currentCharacter!;
-  }
 
   submitForm = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +31,7 @@ export class CharacterForm extends React.Component<ICharacterFormProps> {
   };
 
   render() {
-    const { character } = this;
+    const { character } = this.props;
     const { submitButtonText } = this.props.submit;
     const { agility, constitution, dexterity, strength, power, willpower } = character.characteristics;
     return (
