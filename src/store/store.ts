@@ -9,6 +9,7 @@ const LOCALFORAGE_KEY = 'data';
 
 export const EMPTY_STORE_LITERAL = {
   data: {
+    version: 1,
     characters: []
   },
   ui: {}
@@ -34,15 +35,17 @@ export const storeModel = types
       });
     },
 
-    async loadData() {
-      const savedData = await localforage.getItem(LOCALFORAGE_KEY);
-      try {
-        updateSavedData(savedData);
-        applySnapshot(self.data, savedData);
-        self.ui.setDataLoaded();
-      } catch (e) {
-        console.log(e);
+    async loadData(savedData?: unknown) {
+      const data = savedData || (await localforage.getItem(LOCALFORAGE_KEY));
+      if (data) {
+        try {
+          updateSavedData(data);
+          applySnapshot(self.data, data);
+        } catch (e) {
+          console.log(e);
+        }
       }
+      self.ui.setDataLoaded();
     }
   }));
 
