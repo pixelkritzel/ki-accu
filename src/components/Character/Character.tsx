@@ -1,40 +1,62 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { observable, action } from 'mobx';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
-import { CharacterForm } from './Form';
-import { GameView } from './Game';
-import { CharacterHeader } from './Header';
+import { Button, Input } from 'reactstrap';
+
+import { Actions } from './Actions';
+import { BackButton } from './BackButton';
+import { Characteristics } from './Characteristics';
+import { Fatigue } from './Fatigue';
+
 import { StoreContext } from 'store/StoreContext';
 
+import CSS from './Character.module.scss';
+
+import { RouteComponentProps } from 'react-router';
+
+type ICharacterProps = RouteComponentProps<{ characterId: string }>;
+
 @observer
-export class Character extends React.Component<RouteComponentProps<{ characterId: string }>> {
+export class Character extends React.Component<ICharacterProps> {
   static contextType = StoreContext;
   context!: React.ContextType<typeof StoreContext>;
 
-  @observable showEditForm = false;
-
-  @action toggleEditForm = () => {
-    this.showEditForm = !this.showEditForm;
-  };
-
   render() {
+    const { characters } = this.context.data;
     const { history, match } = this.props;
     const { characterId } = match.params;
-    const store = this.context;
-    const character = store.data.characters.find(({ id }) => id === characterId);
+    const currentCharacter = characters.find(char => char.id === characterId);
+    const { name, fatigue } = currentCharacter!;
     return (
       <>
-        <CharacterHeader character={character!} history={history} />
-        {this.showEditForm ? (
-          <CharacterForm
-            character={character!}
-            submit={{ submitFn: this.toggleEditForm, submitButtonText: 'Close form' }}
-          />
-        ) : (
-          <GameView character={character!} toggleEditForm={this.toggleEditForm} />
-        )}
+        <div className={CSS.header}>
+          <BackButton />
+          <Input
+            type="select"
+            className={CSS.characterSelect}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const selectedCharacter = characters.find(char => char.id === event.target.value);
+              history.push(`/characters/${selectedCharacter!.id}`);
+            }}
+          >
+            {characters.map(char => (
+              <option key={char.id} selected={char === currentCharacter} value={char.id}>
+                {char.name}
+              </option>
+            ))}
+          </Input>
+        </div>
+        <div className={CSS.title}>
+          <h3>{name}</h3>
+          <Link to={`/characters/${characterId}/edit`}>
+            <Button>Edit</Button>
+          </Link>
+        </div>
+        <Actions character={currentCharacter!} />
+        <Characteristics character={currentCharacter!} />
+        <div className={CSS.additionalActions} />
+        <Fatigue fatigue={fatigue} />
       </>
     );
   }

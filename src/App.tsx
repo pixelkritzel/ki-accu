@@ -7,6 +7,7 @@ import CSS from './App.module.css';
 
 import { AllCharacters } from './components/AllCharacters';
 import { Character } from './components/Character';
+import { CharacterEdit } from 'components/Character/CharacterEdit';
 import { NewCharacter } from './components/Character/New';
 
 import { StoreContext } from './store/StoreContext';
@@ -34,8 +35,9 @@ class App extends Component {
         <Router>
           <Container className={CSS.app}>
             <Route exact path="/" component={AllCharacters} />
-            <Route exact path="/new_character" component={NewCharacter} />
-            <Route path="/characters/:characterId" component={Character} />
+            <Route path="/new_character" component={NewCharacter} />
+            <Route exact path="/characters/:characterId" component={Character} />
+            <Route path="/characters/:characterId/edit" component={CharacterEdit} />
           </Container>
         </Router>
       )

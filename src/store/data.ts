@@ -10,6 +10,10 @@ export const dataModel = types
   .actions(self => ({
     addNewCharacter(character: ICharacter) {
       self.characters.push(character);
+    },
+    deleteCharacter(character: ICharacter) {
+      const index = self.characters.indexOf(character);
+      self.characters.splice(index, 1);
     }
   }));
 
