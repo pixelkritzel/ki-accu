@@ -3,12 +3,12 @@ import { observer } from 'mobx-react';
 
 import { Form, Row, Col, Button } from 'reactstrap';
 
-import { FormField } from '@/components/FormField';
-import { IncrementDecrement } from '@/components/IncrementDecrement';
+import { FormField } from 'components/FormField';
+import { IncrementDecrement } from 'components/IncrementDecrement';
 
-import { StoreContext } from '@/store/StoreContext';
+import { StoreContext } from 'store/StoreContext';
 
-import { ICharacter } from '@/store/character';
+import { ICharacter } from 'store/character';
 
 interface ISubmit {
   submitFn: () => void;

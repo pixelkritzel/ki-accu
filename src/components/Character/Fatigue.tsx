@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 
-import { IFatigue } from '@/store/fatigue';
+import { IFatigue } from 'store/fatigue';
 import { Button, Table } from 'reactstrap';
 
 @observer

@@ -5,8 +5,7 @@ import { observer } from 'mobx-react';
 import { Table, Button } from 'reactstrap';
 import { CharacterRow } from './CharacterRow';
 
-import { StoreContext } from '@/store/StoreContext';
-import { ICharacter } from '@/store/character';
+import { StoreContext } from 'store/StoreContext';
 
 import CSS from './AllCharacters.module.scss';
 
@@ -32,7 +31,7 @@ export class AllCharacters extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {store.data.characters.map((character: ICharacter) => (
+            {store.data.characters.map(character => (
               <CharacterRow key={character.id} character={character} />
             ))}
           </tbody>

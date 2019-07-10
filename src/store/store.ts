@@ -1,8 +1,7 @@
-import { dataModel, IData } from './data';
+import { dataModel } from './data';
 import * as localforage from 'localforage';
-import { applySnapshot, onSnapshot, Instance, types, detach } from 'mobx-state-tree';
+import { applySnapshot, onSnapshot, Instance, types } from 'mobx-state-tree';
 
-import { characterModel, CHARACTER_SCAFFOLD, ICharacter } from './character';
 import { uiModel } from './ui';
 import { updateSavedData } from './updateSavedData';
 

@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { CharacterForm } from './Form';
 import { GameView } from './Game';
 import { CharacterHeader } from './Header';
-import { StoreContext } from '@/store/StoreContext';
+import { StoreContext } from 'store/StoreContext';
 
 @observer
 export class Character extends React.Component<RouteComponentProps<{ characterId: string }>> {

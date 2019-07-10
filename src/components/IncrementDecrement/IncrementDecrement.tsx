@@ -13,20 +13,20 @@ export class IncrementDecrement extends React.Component<IIncrementDecrementProps
   onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { handleChange, name = '' } = this.props;
     handleChange && handleChange(name, Number(event.target.value));
-  }
+  };
 
   decrement = () => {
     const { handleChange, name = '', value } = this.props;
     handleChange && handleChange(name, Number(value) - 1);
-  }
+  };
 
   increment = () => {
     const { handleChange, name = '', value } = this.props;
     handleChange && handleChange(name, Number(value) + 1);
-  }
+  };
 
   render() {
-    const { id: idFromProps, handleChange, labelText: labelText, ...passedProps } = this.props;
+    const { id: idFromProps, handleChange, labelText, ...passedProps } = this.props;
     const id = idFromProps || this.id;
     return (
       <FormGroup>

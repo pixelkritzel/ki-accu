@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Button from 'reactstrap/lib/Button';
 
-import { ICharacter } from '@/store/character';
+import { ICharacter } from 'store/character';
 
 import CSS from './Actions.module.scss';
 

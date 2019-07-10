@@ -1,4 +1,4 @@
-import { types, Instance, detach } from 'mobx-state-tree';
+import { types, Instance } from 'mobx-state-tree';
 
 import { characterModel, ICharacter } from './character';
 

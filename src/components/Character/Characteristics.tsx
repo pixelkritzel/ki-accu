@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Table } from 'reactstrap';
 import { CharacteristicRow } from './CharacteristicRow';
 
-import { ICharacter } from '@/store/character';
+import { ICharacter } from 'store/character';
 
 import CSS from './Characteristics.module.scss';
 import { observer } from 'mobx-react';

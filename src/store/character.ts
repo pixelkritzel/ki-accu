@@ -3,7 +3,6 @@ import uuid4 from 'uuid/v4';
 
 import { characteristicModel, ICharacteristic } from './characteristic';
 import { fatigueModel } from './fatigue';
-import { each } from 'lodash';
 
 const CHARACTERISTIC_SCAFFOLD = {
   basePoints: 0,

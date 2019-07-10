@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import cx from 'classnames';
 
-import { ICharacteristic } from '@/store/characteristic';
+import { ICharacteristic } from 'store/characteristic';
 import { Button } from 'reactstrap';
 
 import CSS from './CharacteristicRow.module.scss';

@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree';
-import { characterModel, ICharacter } from './character';
+import { characterModel } from './character';
 
 export const uiModel = types
   .model('ui', {

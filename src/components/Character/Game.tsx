@@ -7,10 +7,10 @@ import { Actions } from './Actions';
 import { Characteristics } from './Characteristics';
 import { Fatigue } from './Fatigue';
 
-import { StoreContext } from '@/store/StoreContext';
+import { StoreContext } from 'store/StoreContext';
 
 import CSS from './Game.module.scss';
-import { ICharacter } from '@/store/character';
+import { ICharacter } from 'store/character';
 
 interface ICharacterViewProps {
   character: ICharacter;

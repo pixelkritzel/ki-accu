@@ -1,4 +1,4 @@
-import { FATIGUE_SCAFFOLD } from '@/store/fatigue';
+import { FATIGUE_SCAFFOLD } from 'store/fatigue';
 import { each } from 'lodash';
 
 function updateToOne(savedData: any) {
